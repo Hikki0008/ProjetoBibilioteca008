@@ -1,0 +1,74 @@
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <version>8.4.0</version> <!-- Verifique se é a última versão -->
+</dependency>
+
+
+
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ConexaoBD {
+
+    private static final String URL = "jdbc:mysql://localhost:3306/Bibilioteca"; // Troque pelo nome do seu banco
+    private static final String USUARIO = "root"; // Usuário do banco
+    private static final String SENHA = "sua_senha"; // Senha do banco
+
+    public static Connection conectar() {
+        try {
+            // Registrar o driver (opcional a partir do JDBC 4.0)
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Estabelecer conexão
+            Connection conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
+            System.out.println("Conexão estabelecida com sucesso!");
+            return conexao;
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("Driver JDBC não encontrado: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        conectar(); // Testa a conexão
+    }
+}
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ConexaoBD {
+
+    private static final String URL = "jdbc:mysql://localhost:3306/nomedobanco"; // Troque pelo nome do seu banco
+    private static final String USUARIO = "root"; // Usuário do banco
+    private static final String SENHA = "sua_senha"; // Senha do banco
+
+    public static Connection conectar() {
+        try {
+            // Registrar o driver (opcional a partir do JDBC 4.0)
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Estabelecer conexão
+            Connection conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
+            System.out.println("Conexão estabelecida com sucesso!");
+            return conexao;
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("Driver JDBC não encontrado: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Erro ao conectar ao banco de dados: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        conectar(); // Testa a conexão
+    }
+}
