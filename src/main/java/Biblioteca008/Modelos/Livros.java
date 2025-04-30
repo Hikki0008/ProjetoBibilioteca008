@@ -9,7 +9,7 @@ public class Livros {
     private short ano;
     private String disponibilidade;
 
-    public Livros (){
+    public Livros(int id, String exemplar, String autor, byte edicao, short ano, String disponibilidade) {
         this.id = id;
         this.exemplar = exemplar;
         this.autor = autor;
@@ -17,7 +17,42 @@ public class Livros {
         this.ano = ano;
         this.disponibilidade = disponibilidade;
     }
-
-    //Getters e Setters......
+    //Getters e Setters.....
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getExemplar() {
+        return exemplar;
+    }
+    public void setExemplar(String exemplar) {
+        this.exemplar = exemplar;
+    }
+    public String getAutor() {
+        return autor;
+    }
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+    public byte getEdicao() {
+        return edicao;
+    }
+    public void setEdicao(byte edicao) {
+        this.edicao = edicao;
+    }
+    public short getAno() {
+        return ano;
+    }
+    public void setAno(short ano) {
+        this.ano = ano;
+    }
+    public String getDisponibilidade() {
+        return disponibilidade;
+    }
+    public void setDisponibilidade(String disponibilidade) {
+        this.disponibilidade = disponibilidade;
+    }
 
 }
