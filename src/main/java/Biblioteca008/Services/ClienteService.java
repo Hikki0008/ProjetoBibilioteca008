@@ -9,16 +9,4 @@ import java.util.Collection;
 
 public class ClienteService {
 
-    private ClienteRepository repository = new ClienteRepository();
-
-    //Conexão com o banco........................
-    //...........................................
-    //...........................................
-
-    String sql = "INSERT INTO Clientes (id, nome, email, cpf) VALUES (???)";
-    try (Connection conn = DriverManager.getConnection(url,usuario, senha));
-
-    PreparedStatement stmt = conn.prepareStatement(sql)) ;
-
 }
-

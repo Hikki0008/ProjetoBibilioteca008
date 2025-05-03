@@ -2,7 +2,6 @@ package Biblioteca008.Modelos;
 
 public class Cliente {
 
-    private int id;
     private String nome;
     private String sexo;
     private String cpf;
