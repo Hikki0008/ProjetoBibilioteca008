@@ -1,7 +1,7 @@
 package Biblioteca008.Modelos;
 
 public class Cliente {
-
+    private int id;
     private String nome;
     private String sexo;
     private String cpf;
@@ -10,7 +10,7 @@ public class Cliente {
 
 
     public Cliente (String nome, String sexo, String cpf,String datanascimento, String endereco){
-
+        this.id = id;
         this.nome = nome;
         this.sexo = sexo;
         this.cpf = cpf;
