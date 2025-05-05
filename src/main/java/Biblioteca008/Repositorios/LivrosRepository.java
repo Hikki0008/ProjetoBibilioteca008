@@ -36,7 +36,7 @@ public class LivrosRepository {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Erro ao salvar livro: " + e.getMessage(), e);
         }
     }
 
