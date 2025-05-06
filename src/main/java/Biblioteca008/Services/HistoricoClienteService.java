@@ -1,4 +1,4 @@
-package Biblioteca008.Servicos;
+package Biblioteca008.Services;
 
 import Biblioteca008.Modelos.Emprestimos;
 import Biblioteca008.Modelos.HistoricoCliente;
