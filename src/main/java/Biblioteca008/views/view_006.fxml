@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Biblioteca008.views.View006"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="src.controllers.UsuariosController">
+    <top>
+        <Label text="Usuarios" styleClass="label-title" BorderPane.alignment="CENTER"/>
+    </top>
+    <center>
+        <TableView prefHeight="200" prefWidth="400">
+            <columns>
+                <TableColumn text="Coluna 1"/>
+                <TableColumn text="Coluna 2"/>
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Adicionar"/>
+            <Button text="Editar"/>
+            <Button text="Excluir"/>
+        </HBox>
+    </bottom>
+</BorderPane>
