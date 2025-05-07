@@ -13,7 +13,7 @@ public class ClienteRepository {
 
     private final String url = "jdbc:mysql://localhost:3306/biblioteca";
     private final String usuario = "root";
-    private final String senha = "sua_senha";
+    private final String senha = null;
 
     private Connection conectar() throws SQLException {
         return DriverManager.getConnection(url, usuario, senha);
