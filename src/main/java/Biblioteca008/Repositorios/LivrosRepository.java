@@ -21,17 +21,16 @@ public class LivrosRepository {
     }
 
     public void salvar(Livros livro) {
-        String sql = "INSERT INTO livros (id, exemplar, autor, edicao, ano, disponibilidade) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO livros (exemplar, autor, edicao, ano, disponibilidade) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, livro.getId());
-            stmt.setString(2, livro.getExemplar());
-            stmt.setString(3, livro.getAutor());
-            stmt.setByte(4, livro.getEdicao());
-            stmt.setShort(5, livro.getAno());
-            stmt.setString(6, livro.getDisponibilidade());
+            stmt.setString(1, livro.getExemplar());
+            stmt.setString(2, livro.getAutor());
+            stmt.setByte(3, livro.getEdicao());
+            stmt.setShort(4, livro.getAno());
+            stmt.setString(5, livro.getDisponibilidade());
 
             stmt.executeUpdate();
 
@@ -39,6 +38,7 @@ public class LivrosRepository {
             throw new RuntimeException("Erro ao salvar livro: " + e.getMessage(), e);
         }
     }
+
 
     public Livros buscarPorId(int id) {
         String sql = "SELECT * FROM livros WHERE id = ?";

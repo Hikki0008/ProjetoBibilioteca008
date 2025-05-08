@@ -3,23 +3,46 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="src.controllers.LivrosController">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Biblioteca008.controllers.LivrosController">
+
     <top>
-        <Label text="Livros" styleClass="label-title" BorderPane.alignment="CENTER"/>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <HBox spacing="10">
+                <Label text="Exemplar:"/>
+                <TextField fx:id="campoExemplar"/>
+                <Label text="Autor:"/>
+                <TextField fx:id="campoAutor"/>
+            </HBox>
+            <HBox spacing="10">
+                <Label text="Edição:"/>
+                <TextField fx:id="campoEdicao"/>
+                <Label text="Ano:"/>
+                <TextField fx:id="campoAno"/>
+                <Label text="Disponibilidade:"/>
+                <TextField fx:id="campoDisponibilidade"/>
+            </HBox>
+            <HBox spacing="10">
+                <Button text="Salvar" onAction="#salvarLivro"/>
+                <Button text="Atualizar" onAction="#atualizarLivro"/>
+                <Button text="Remover" onAction="#removerLivro"/>
+                <Button text="Limpar Campos" onAction="#limparCampos"/>
+            </HBox>
+        </VBox>
     </top>
+
     <center>
-        <TableView prefHeight="200" prefWidth="400">
+        <TableView fx:id="tabelaLivros" onMouseClicked="#preencherCamposComSelecao">
             <columns>
-                <TableColumn text="Coluna 1"/>
-                <TableColumn text="Coluna 2"/>
+                <TableColumn text="ID" fx:id="colId"/>
+                <TableColumn text="Exemplar" fx:id="colExemplar"/>
+                <TableColumn text="Autor" fx:id="colAutor"/>
+                <TableColumn text="Edição" fx:id="colEdicao"/>
+                <TableColumn text="Ano" fx:id="colAno"/>
+                <TableColumn text="Disponibilidade" fx:id="colDisponibilidade"/>
             </columns>
         </TableView>
     </center>
-    <bottom>
-        <HBox spacing="10" alignment="CENTER">
-            <Button text="Adicionar"/>
-            <Button text="Editar"/>
-            <Button text="Excluir"/>
-        </HBox>
-    </bottom>
+
 </BorderPane>
