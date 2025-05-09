@@ -1,46 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Biblioteca008.controllers.LivrosController">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Biblioteca008.Controllers.LivrosController">
 
     <top>
         <VBox spacing="10" style="-fx-padding: 10;">
             <HBox spacing="10">
-                <Label text="Exemplar:"/>
-                <TextField fx:id="campoExemplar"/>
-                <Label text="Autor:"/>
-                <TextField fx:id="campoAutor"/>
+                <Label text="Exemplar:" />
+                <TextField fx:id="campoExemplar" />
+                <Label text="Autor:" />
+                <TextField fx:id="campoAutor" />
             </HBox>
             <HBox spacing="10">
-                <Label text="Edição:"/>
-                <TextField fx:id="campoEdicao"/>
-                <Label text="Ano:"/>
-                <TextField fx:id="campoAno"/>
-                <Label text="Disponibilidade:"/>
-                <TextField fx:id="campoDisponibilidade"/>
+                <Label text="Edição:" />
+                <TextField fx:id="campoEdicao" />
+                <Label text="Ano:" />
+                <TextField fx:id="campoAno" />
+                <Label text="Disponibilidade:" />
+                <TextField fx:id="campoDisponibilidade" />
             </HBox>
             <HBox spacing="10">
-                <Button text="Salvar" onAction="#salvarLivro"/>
-                <Button text="Atualizar" onAction="#atualizarLivro"/>
-                <Button text="Remover" onAction="#removerLivro"/>
-                <Button text="Limpar Campos" onAction="#limparCampos"/>
+                <Button onAction="#salvarLivro" text="Salvar" />
+                <Button onAction="#atualizarLivro" text="Atualizar" />
+                <Button onAction="#removerLivro" text="Remover" />
+                <Button onAction="#limparCampos" text="Limpar Campos" />
             </HBox>
+            <!-- Mensagem de erro ou sucesso -->
+            <Label fx:id="labelMensagem" style="-fx-text-fill: #afac01;" />
         </VBox>
     </top>
 
     <center>
         <TableView fx:id="tabelaLivros" onMouseClicked="#preencherCamposComSelecao">
             <columns>
-                <TableColumn text="ID" fx:id="colId"/>
-                <TableColumn text="Exemplar" fx:id="colExemplar"/>
-                <TableColumn text="Autor" fx:id="colAutor"/>
-                <TableColumn text="Edição" fx:id="colEdicao"/>
-                <TableColumn text="Ano" fx:id="colAno"/>
-                <TableColumn text="Disponibilidade" fx:id="colDisponibilidade"/>
+                <TableColumn fx:id="colId" text="ID" />
+                <TableColumn fx:id="colExemplar" prefWidth="116.0" text="Exemplar" />
+                <TableColumn fx:id="colAutor" prefWidth="103.0" text="Autor" />
+                <TableColumn fx:id="colEdicao" prefWidth="91.0" text="Edição" />
+                <TableColumn fx:id="colAno" prefWidth="99.0" text="Ano" />
+                <TableColumn fx:id="colDisponibilidade" prefWidth="195.0" text="Disponibilidade" />
             </columns>
         </TableView>
     </center>

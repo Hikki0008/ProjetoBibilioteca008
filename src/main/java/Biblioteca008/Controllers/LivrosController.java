@@ -1,9 +1,7 @@
 package Biblioteca008.Controllers;
 
 import Biblioteca008.Modelos.Livros;
-import Biblioteca008.Services.LivrosService;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import Biblioteca008.Repositorios.LivrosRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,145 +9,140 @@ import javafx.scene.control.*;
 
 public class LivrosController {
 
-    @FXML private TextField campoExemplar;
-    @FXML private TextField campoAutor;
-    @FXML private TextField campoEdicao;
-    @FXML private TextField campoAno;
-    @FXML private TextField campoDisponibilidade;
+    @FXML
+    private TextField campoExemplar;
+    @FXML
+    private TextField campoAutor;
+    @FXML
+    private TextField campoEdicao;
+    @FXML
+    private TextField campoAno;
+    @FXML
+    private TextField campoDisponibilidade;
 
-    @FXML private TableView<Livros> tabelaLivros;
-    @FXML private TableColumn<Livros, Integer> colId;
-    @FXML private TableColumn<Livros, String> colExemplar;
-    @FXML private TableColumn<Livros, String> colAutor;
-    @FXML private TableColumn<Livros, Byte> colEdicao;
-    @FXML private TableColumn<Livros, Short> colAno;
-    @FXML private TableColumn<Livros, String> colDisponibilidade;
+    @FXML
+    private TableView<Livros> tabelaLivros;
+    @FXML
+    private TableColumn<Livros, Integer> colId;
+    @FXML
+    private TableColumn<Livros, String> colExemplar;
+    @FXML
+    private TableColumn<Livros, String> colAutor;
+    @FXML
+    private TableColumn<Livros, String> colEdicao;
+    @FXML
+    private TableColumn<Livros, Integer> colAno;
+    @FXML
+    private TableColumn<Livros, String> colDisponibilidade;
 
-    private LivrosService service = new LivrosService();
-    private ObservableList<Livros> livrosList = FXCollections.observableArrayList();
+    private final LivrosRepository livroRepo = new LivrosRepository();
+    private ObservableList<Livros> listaLivros;
+
+    private Livros livroSelecionado;
 
     @FXML
     public void initialize() {
-        colId.setCellValueFactory(c -> new SimpleIntegerProperty(c.getValue().getId()).asObject());
-        colExemplar.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getExemplar()));
-        colAutor.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getAutor()));
-        colEdicao.setCellValueFactory(c -> new javafx.beans.property.SimpleObjectProperty<>(c.getValue().getEdicao()));
-        colAno.setCellValueFactory(c -> new javafx.beans.property.SimpleObjectProperty<>(c.getValue().getAno()));
-        colDisponibilidade.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDisponibilidade()));
+        colId.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        colExemplar.setCellValueFactory(cellData -> cellData.getValue().exemplarProperty());
+        colAutor.setCellValueFactory(cellData -> cellData.getValue().autorProperty());
+        colEdicao.setCellValueFactory(cellData -> cellData.getValue().edicaoProperty());
+        colAno.setCellValueFactory(cellData -> cellData.getValue().anoProperty().asObject());
+        colDisponibilidade.setCellValueFactory(cellData -> cellData.getValue().disponibilidadeProperty());
 
-        carregarTabela();
+        carregarLivros();
     }
 
-    private void carregarTabela() {
-        livrosList.setAll(service.listarLivros());
-        tabelaLivros.setItems(livrosList);
-    }
-
-    @FXML
-    private void salvarLivro() {
+    private void carregarLivros() {
         try {
-            Livros livro = construirLivroDosCampos();
-
-            service.adicionarLivro(livro);
-            mostrarInfo("Livro salvo com sucesso.");
-            carregarTabela();
-            limparCampos();
-
+            listaLivros = FXCollections.observableArrayList(livroRepo.listarTodos());
+            tabelaLivros.setItems(listaLivros);
         } catch (Exception e) {
-            mostrarErro("Erro ao salvar: " + e.getMessage());
+            exibirErro("Erro ao carregar livros", e.getMessage());
         }
     }
 
     @FXML
-    private void atualizarLivro() {
-        Livros selecionado = tabelaLivros.getSelectionModel().getSelectedItem();
-        if (selecionado == null) {
-            mostrarErro("Selecione um livro para atualizar.");
-            return;
-        }
-
+    public void salvarLivro() {
         try {
-            Livros livroAtualizado = new Livros(
-                    selecionado.getId(),
-                    campoExemplar.getText(),
-                    campoAutor.getText(),
-                    Byte.parseByte(campoEdicao.getText()),
-                    Short.parseShort(campoAno.getText()),
-                    campoDisponibilidade.getText()
-            );
+            Livros livros = new Livros();
+            livros.setExemplar(campoExemplar.getText());
+            livros.setAutor(campoAutor.getText());
+            livros.setEdicao(Integer.parseInt(campoEdicao.getText()));
+            livros.setAno(Integer.parseInt(campoAno.getText()));
+            livros.setDisponibilidade(campoDisponibilidade.getText());
 
-            service.atualizarLivro(livroAtualizado);
-            mostrarInfo("Livro atualizado com sucesso.");
-            carregarTabela();
+            livroRepo.salvar(livros);
+            carregarLivros();
             limparCampos();
+        } catch (NumberFormatException e) {
+            exibirErro("Erro de formato", "O campo 'Ano' deve conter apenas números.");
         } catch (Exception e) {
-            mostrarErro("Erro ao atualizar: " + e.getMessage());
+            exibirErro("Erro ao salvar livro", e.getMessage());
         }
     }
 
     @FXML
-    private void removerLivro() {
-        Livros selecionado = tabelaLivros.getSelectionModel().getSelectedItem();
-        if (selecionado == null) {
-            mostrarErro("Selecione um livro para remover.");
-            return;
-        }
+    public void atualizarLivro() {
+        if (livroSelecionado != null) {
+            try {
+                livroSelecionado.setExemplar(campoExemplar.getText());
+                livroSelecionado.setAutor(campoAutor.getText());
+                livroSelecionado.setEdicao(Integer.parseInt(campoEdicao.getText()));
+                livroSelecionado.setAno(Integer.parseInt(campoAno.getText()));
+                livroSelecionado.setDisponibilidade(campoDisponibilidade.getText());
 
-        try {
-            service.removerLivro(selecionado.getId());
-            mostrarInfo("Livro removido com sucesso.");
-            carregarTabela();
-            limparCampos();
-        } catch (Exception e) {
-            mostrarErro("Erro ao remover: " + e.getMessage());
+                livroRepo.atualizar(livroSelecionado);
+                carregarLivros();
+                limparCampos();
+            } catch (NumberFormatException e) {
+                exibirErro("Erro de formato", "O campo 'Ano' deve conter apenas números.");
+            } catch (Exception e) {
+                exibirErro("Erro ao atualizar livro", e.getMessage());
+            }
         }
     }
 
     @FXML
-    private void limparCampos() {
+    public void deletar() {
+        if (livroSelecionado != null) {
+            try {
+                livroRepo.deletar(livroSelecionado.getId());
+                carregarLivros();
+                limparCampos();
+            } catch (Exception e) {
+                exibirErro("Erro ao remover livro", e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    public void limparCampos() {
         campoExemplar.clear();
         campoAutor.clear();
         campoEdicao.clear();
         campoAno.clear();
         campoDisponibilidade.clear();
+        livroSelecionado = null;
         tabelaLivros.getSelectionModel().clearSelection();
     }
 
     @FXML
-    private void preencherCamposComSelecao() {
-        Livros livro = tabelaLivros.getSelectionModel().getSelectedItem();
-        if (livro != null) {
-            campoExemplar.setText(livro.getExemplar());
-            campoAutor.setText(livro.getAutor());
-            campoEdicao.setText(String.valueOf(livro.getEdicao()));
-            campoAno.setText(String.valueOf(livro.getAno()));
-            campoDisponibilidade.setText(livro.getDisponibilidade());
+    public void preencherCamposComSelecao() {
+        livroSelecionado = tabelaLivros.getSelectionModel().getSelectedItem();
+        if (livroSelecionado != null) {
+            campoExemplar.setText(livroSelecionado.getExemplar());
+            campoAutor.setText(livroSelecionado.getAutor());
+            campoEdicao.setText(livroSelecionado.getEdicao());
+            campoAno.setText(String.valueOf(livroSelecionado.getAno()));
+            campoDisponibilidade.setText(livroSelecionado.getDisponibilidade());
         }
     }
 
-    private Livros construirLivroDosCampos() {
-        return new Livros(
-                0, // ID será gerado automaticamente
-                campoExemplar.getText(),
-                campoAutor.getText(),
-                Byte.parseByte(campoEdicao.getText()),
-                Short.parseShort(campoAno.getText()),
-                campoDisponibilidade.getText()
-        );
-    }
-
-    private void mostrarErro(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erro");
-        alert.setContentText(mensagem);
-        alert.showAndWait();
-    }
-
-    private void mostrarInfo(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Informação");
-        alert.setContentText(mensagem);
-        alert.showAndWait();
+    private void exibirErro(String titulo, String mensagem) {
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensagem);
+        alerta.showAndWait();
     }
 }
-
