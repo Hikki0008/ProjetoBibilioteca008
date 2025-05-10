@@ -20,6 +20,8 @@
             <HBox spacing="10">
                 <Button fx:id="btnRegistrarEmprestimo" text="Registrar Empréstimo" />
                 <Button fx:id="btnRegistrarDevolucao" text="Registrar Devolução" />
+                <Button text="Registrar Pagamento" onAction="#onAbrirPagamentos"/>
+                <Button text="Voltar para Início" onAction="#onVoltarInicio" BorderPane.alignment="CENTER"/>
             </HBox>
         </VBox>
     </center>

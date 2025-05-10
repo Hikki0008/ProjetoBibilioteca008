@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="Biblioteca008.Controllers.PagamentoController">
+    <top>
+        <Label text="Registro de Pagamento" style="-fx-font-size: 18px;" BorderPane.alignment="CENTER"/>
+    </top>
+    <center>
+        <VBox spacing="10" alignment="CENTER" padding="20">
+            <HBox spacing="10">
+                <Label text="ID Empréstimo:"/>
+                <TextField fx:id="campoIdEmprestimo" promptText="Digite o ID"/>
+            </HBox>
+
+            <Button text="Registrar Pagamento" onAction="#onRegistrarPagamento"/>
+            <Label fx:id="mensagemLabel" style="-fx-text-fill: green;" />
+        </VBox>
+    </center>
+    <bottom>
+        <Button text="Voltar para Início" onAction="#onVoltarInicio" BorderPane.alignment="CENTER"/>
+    </bottom>
+</BorderPane>

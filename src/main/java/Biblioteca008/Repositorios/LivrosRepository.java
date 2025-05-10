@@ -28,8 +28,8 @@ public class LivrosRepository {
 
             stmt.setString(1, livro.getExemplar());
             stmt.setString(2, livro.getAutor());
-            stmt.setByte(3, livro.getEdicao());
-            stmt.setShort(4, livro.getAno());
+            stmt.setByte(3, (byte) livro.getEdicao());
+            stmt.setShort(4, (short) livro.getAno());
             stmt.setString(5, livro.getDisponibilidade());
 
             stmt.executeUpdate();
@@ -101,8 +101,8 @@ public class LivrosRepository {
 
             stmt.setString(1, livro.getExemplar());
             stmt.setString(2, livro.getAutor());
-            stmt.setByte(3, livro.getEdicao());
-            stmt.setShort(4, livro.getAno());
+            stmt.setByte(3, (byte) livro.getEdicao());
+            stmt.setShort(4, (short) livro.getAno());
             stmt.setString(5, livro.getDisponibilidade());
             stmt.setInt(6, livro.getId());
 

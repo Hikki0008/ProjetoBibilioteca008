@@ -5,23 +5,20 @@ import java.time.LocalDate;
 public class Emprestimos {
     private int idEmprestimos;
     private int idCliente;
-    private int idLivro;
+    private int id;
     private LocalDate dataEmprestimos;
     private LocalDate dataDevolucao;
     private boolean devolvido;
 
-    public Emprestimos() {
-    }
-
-    public Emprestimos(int idEmprestimos, int idCliente, int idLivro,
-                       LocalDate dataEmprestimos, LocalDate dataDevolucao, boolean devolvido) {
-        this.idEmprestimos = idEmprestimos;
+    public Emprestimos( id, int idCliente, LocalDate dataEmprestimo, LocalDate dataDevolucao, boolean devolvido) {
+        this.id = id;
         this.idCliente = idCliente;
-        this.idLivro = idLivro;
-        this.dataEmprestimos = dataEmprestimos;
+        this.dataEmprestimos = dataEmprestimo;
         this.dataDevolucao = dataDevolucao;
         this.devolvido = devolvido;
     }
+
+
 
     // Getters e Setters
     public int getIdEmprestimos() {

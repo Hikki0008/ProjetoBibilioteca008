@@ -5,7 +5,11 @@ import Biblioteca008.Repositorios.ClienteRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 public class ClienteController {
 
@@ -130,5 +134,24 @@ public class ClienteController {
         alerta.setContentText(mensagem);
         alerta.showAndWait();
     }
+    @FXML
+    private void onVoltarInicio() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Biblioteca008/Views/inicio.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Tela de Início");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Fecha a janela atual usando um nó da interface (ex: campoNome)
+            Stage janelaAtual = (Stage) campoNome.getScene().getWindow();
+            janelaAtual.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 

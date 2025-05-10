@@ -17,6 +17,7 @@ public class HistoricoClienteService {
     private final PagamentoRepository pagamentoRepository;
     private final LivrosRepository livrosRepository;
 
+    // Construtor que inicializa os repositórios
     public HistoricoClienteService(EmprestimoRepository emprestimoRepository,
                                    PagamentoRepository pagamentoRepository,
                                    LivrosRepository livrosRepository) {
@@ -25,14 +26,15 @@ public class HistoricoClienteService {
         this.livrosRepository = livrosRepository;
     }
 
-    // Método para gerar o histórico de um cliente
+    // Método para gerar o histórico do cliente
     public List<HistoricoCliente> gerarHistoricoDoCliente(int idCliente) {
         List<HistoricoCliente> historico = new ArrayList<>();
 
         // Adiciona os registros de empréstimos e devoluções
         for (Emprestimos emp : emprestimoRepository.listarTodos()) {
             if (emp.getIdCliente() == idCliente) {
-                String tituloLivro = String.valueOf(livrosRepository.buscarPorId(emp.getIdLivro()));
+                // Obtém o título do livro emprestado
+                String tituloLivro = livrosRepository.buscarPorId(emp.getIdLivro()).getExemplar();
 
                 historico.add(new HistoricoCliente(
                         emp.getDataEmprestimos().atStartOfDay(),
@@ -53,13 +55,14 @@ public class HistoricoClienteService {
 
         // Adiciona os registros de pagamentos
         for (Pagamento pag : pagamentoRepository.listarTodos()) {
+            // Encontra o empréstimo relacionado ao pagamento
             Emprestimos emprestimo = emprestimoRepository.listarTodos().stream()
                     .filter(e -> e.getIdEmprestimos() == pag.getIdEmprestimos() && e.getIdCliente() == idCliente)
                     .findFirst()
                     .orElse(null);
 
             if (emprestimo != null) {
-                String tituloLivro = String.valueOf(livrosRepository.buscarPorId(emprestimo.getIdLivro()));
+                String tituloLivro = livrosRepository.buscarPorId(emprestimo.getIdLivro()).getExemplar();
 
                 historico.add(new HistoricoCliente(
                         pag.getDataPagamento().atStartOfDay(),
@@ -74,7 +77,7 @@ public class HistoricoClienteService {
         return historico;
     }
 
-    // Método para exibir o histórico do cliente
+    // Método para exibir o histórico do cliente (pode ser útil para depuração ou visualização no console)
     public void mostrarHistoricoCliente(int idCliente) {
         // Chama o método gerarHistoricoDoCliente para obter o histórico
         List<HistoricoCliente> historico = gerarHistoricoDoCliente(idCliente);
@@ -86,4 +89,3 @@ public class HistoricoClienteService {
         }
     }
 }
-

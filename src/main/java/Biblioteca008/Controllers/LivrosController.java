@@ -5,7 +5,11 @@ import Biblioteca008.Repositorios.LivrosRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 public class LivrosController {
 
@@ -45,7 +49,6 @@ public class LivrosController {
         colId.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
         colExemplar.setCellValueFactory(cellData -> cellData.getValue().exemplarProperty());
         colAutor.setCellValueFactory(cellData -> cellData.getValue().autorProperty());
-        colEdicao.setCellValueFactory(cellData -> cellData.getValue().edicaoProperty());
         colAno.setCellValueFactory(cellData -> cellData.getValue().anoProperty().asObject());
         colDisponibilidade.setCellValueFactory(cellData -> cellData.getValue().disponibilidadeProperty());
 
@@ -145,4 +148,23 @@ public class LivrosController {
         alerta.setContentText(mensagem);
         alerta.showAndWait();
     }
+    @FXML
+    private void onVoltarInicio() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Biblioteca008/Views/inicio.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Tela de Início");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Fecha a janela atual usando qualquer nó da interface (ex: a tabela)
+            Stage janelaAtual = (Stage) tabelaLivros.getScene().getWindow();
+            janelaAtual.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

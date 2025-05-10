@@ -1,49 +1,66 @@
 package Biblioteca008.Modelos;
 
+import javafx.beans.property.*;
+
 import java.time.LocalDate;
 
 public class Pagamento {
-    private int idPagamento;
-    private int idEmprestimos;
-    private LocalDate dataPagamento;
-    private double valorPago;
+    private final IntegerProperty idPagamento = new SimpleIntegerProperty();
+    private final IntegerProperty idEmprestimos = new SimpleIntegerProperty();
+    private final ObjectProperty<LocalDate> dataPagamento = new SimpleObjectProperty<>();
+    private final DoubleProperty valorPago = new SimpleDoubleProperty();
 
     public Pagamento(int idEmprestimos, LocalDate dataPagamento, double valorPago) {
-        this.idEmprestimos = idEmprestimos;
-        this.dataPagamento = dataPagamento;
-        this.valorPago = valorPago;
+        this.idEmprestimos.set(idEmprestimos);
+        this.dataPagamento.set(dataPagamento);
+        this.valorPago.set(valorPago);
     }
 
-    // Getters and setters
     public int getIdPagamento() {
+        return idPagamento.get();
+    }
+
+    public void setIdPagamento(int id) {
+        this.idPagamento.set(id);
+    }
+
+    public IntegerProperty idPagamentoProperty() {
         return idPagamento;
     }
 
-    public void setIdPagamento(int idPagamento) {
-        this.idPagamento = idPagamento;
+    public int getIdEmprestimos() {
+        return idEmprestimos.get();
     }
 
-    public int getIdEmprestimos() {
+    public void setIdEmprestimos(int id) {
+        this.idEmprestimos.set(id);
+    }
+
+    public IntegerProperty idEmprestimosProperty() {
         return idEmprestimos;
     }
 
-    public void setIdEmprestimos(int idEmprestimos) {
-        this.idEmprestimos = idEmprestimos;
+    public LocalDate getDataPagamento() {
+        return dataPagamento.get();
     }
 
-    public LocalDate getDataPagamento() {
+    public void setDataPagamento(LocalDate data) {
+        this.dataPagamento.set(data);
+    }
+
+    public ObjectProperty<LocalDate> dataPagamentoProperty() {
         return dataPagamento;
     }
 
-    public void setDataPagamento(LocalDate dataPagamento) {
-        this.dataPagamento = dataPagamento;
-    }
-
     public double getValorPago() {
-        return valorPago;
+        return valorPago.get();
     }
 
-    public void setValorPago(double valorPago) {
-        this.valorPago = valorPago;
+    public void setValorPago(double valor) {
+        this.valorPago.set(valor);
+    }
+
+    public DoubleProperty valorPagoProperty() {
+        return valorPago;
     }
 }

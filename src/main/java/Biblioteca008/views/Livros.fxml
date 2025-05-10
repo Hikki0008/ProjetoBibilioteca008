@@ -30,8 +30,9 @@
             <HBox spacing="10">
                 <Button onAction="#salvarLivro" text="Salvar" />
                 <Button onAction="#atualizarLivro" text="Atualizar" />
-                <Button onAction="#removerLivro" text="Remover" />
+                <Button onAction="#deletar" text="Remover" />
                 <Button onAction="#limparCampos" text="Limpar Campos" />
+                <Button text="Voltar para Início" onAction="#onVoltarInicio" BorderPane.alignment="CENTER"/>
             </HBox>
             <!-- Mensagem de erro ou sucesso -->
             <Label fx:id="labelMensagem" style="-fx-text-fill: #afac01;" />

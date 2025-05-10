@@ -47,6 +47,7 @@
                 <Button text="Atualizar" onAction="#atualizarCliente"/>
                 <Button text="Deletar" onAction="#deletarCliente"/>
                 <Button text="Limpar" onAction="#limparCampos"/>
+                <Button text="Voltar para Início" onAction="#onVoltarInicio" BorderPane.alignment="CENTER"/>
             </HBox>
 
             <!-- Tabela de Clientes -->

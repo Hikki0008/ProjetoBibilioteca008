@@ -1,7 +1,6 @@
 package Biblioteca008.Modelos;
 
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
 
 public class Livros {
     private IntegerProperty id = new SimpleIntegerProperty();
@@ -25,7 +24,6 @@ public class Livros {
     public IntegerProperty idProperty() { return id; }
     public StringProperty exemplarProperty() { return exemplar; }
     public StringProperty autorProperty() { return autor; }
-    public ObservableValue<String> edicaoProperty() { return edicao; }
     public IntegerProperty anoProperty() { return ano; }
     public StringProperty disponibilidadeProperty() { return disponibilidade; }
 
@@ -39,7 +37,7 @@ public class Livros {
     public String getAutor() { return autor.get(); }
     public void setAutor(String autor) { this.autor.set(autor); }
 
-    public String getEdicao() { return edicao.get(); }
+    public int getEdicao() { return edicao.get(); }
     public void setEdicao(int edicao) { this.edicao.set(edicao); }
 
     public int getAno() { return ano.get(); }
@@ -47,4 +45,6 @@ public class Livros {
 
     public String getDisponibilidade() { return disponibilidade.get(); }
     public void setDisponibilidade(String disponibilidade) { this.disponibilidade.set(disponibilidade); }
+
+
 }

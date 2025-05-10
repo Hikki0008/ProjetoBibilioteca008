@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Biblioteca008.Controllers.LoginController">
+    <children>
+        <VBox alignment="CENTER" spacing="10" layoutX="100" layoutY="50" prefWidth="300" prefHeight="200" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="50">
+            <Label text="Login do Sistema" />
+            <TextField fx:id="campoUsuario" promptText="CPF" />
+            <PasswordField fx:id="campoSenha" promptText="Senha" />
+            <Label fx:id="labelMensagem" style="-fx-text-fill: #057c2a;" />
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Entrar" onAction="#onLoginClick" />
+                <Button text="Cancelar" onAction="#onCancelClick" />
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

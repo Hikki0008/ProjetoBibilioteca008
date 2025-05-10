@@ -8,8 +8,12 @@ import Biblioteca008.Repositorios.LivrosRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -83,5 +87,39 @@ public class EmprestimoController {
         alerta.setHeaderText(null);
         alerta.setContentText(mensagem);
         alerta.showAndWait();
+    }
+    @FXML
+    private void onAbrirPagamentos() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Biblioteca008/Views/pagamento.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Registro de Pagamento");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Fecha a tela atual (opcional)
+            ((Stage) root.getScene().getWindow()).close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void onVoltarInicio() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Biblioteca008/Views/inicio.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Tela de Início");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Fecha a janela atual usando um elemento da interface
+            Stage janelaAtual = (Stage) campoIdLivro.getScene().getWindow();
+            janelaAtual.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
