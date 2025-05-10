@@ -21,7 +21,7 @@
             </HBox>
             <HBox spacing="10">
                 <Label text="Edição:" />
-                <TextField fx:id="campoEdicao" />
+                <TextField fx:id="ediçãoId" />
                 <Label text="Ano:" />
                 <TextField fx:id="campoAno" />
                 <Label text="Disponibilidade:" />
@@ -39,7 +39,7 @@
     </top>
 
     <center>
-        <TableView fx:id="tabelaLivros" onMouseClicked="#preencherCamposComSelecao">
+        <TableView fx:id="tabelaLivros" onMouseClicked="#preencherCamposComSelecao" style="-fx-background-color: 0949783;">
             <columns>
                 <TableColumn fx:id="colId" text="ID" />
                 <TableColumn fx:id="colExemplar" prefWidth="116.0" text="Exemplar" />

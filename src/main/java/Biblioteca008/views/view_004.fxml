@@ -2,24 +2,32 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="src.controllers.EmprestimosController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="Biblioteca008.Controllers.EmprestimoController">
     <top>
-        <Label text="Emprestimos" styleClass="label-title" BorderPane.alignment="CENTER"/>
+        <Label text="Sistema de Empréstimos" style="-fx-font-size: 18px; -fx-padding: 10;" />
     </top>
+
     <center>
-        <TableView prefHeight="200" prefWidth="400">
-            <columns>
-                <TableColumn text="Coluna 1"/>
-                <TableColumn text="Coluna 2"/>
-            </columns>
-        </TableView>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <TextField fx:id="campoIdLivro" promptText="ID do Livro" />
+            <TextField fx:id="campoIdCliente" promptText="ID do Cliente" />
+            <DatePicker fx:id="campoDataEmprestimo" promptText="Data de Empréstimo" />
+            <DatePicker fx:id="campoDataDevolucao" promptText="Data de Devolução" />
+
+            <HBox spacing="10">
+                <Button fx:id="btnRegistrarEmprestimo" text="Registrar Empréstimo" />
+                <Button fx:id="btnRegistrarDevolucao" text="Registrar Devolução" />
+            </HBox>
+        </VBox>
     </center>
-    <bottom>
-        <HBox spacing="10" alignment="CENTER">
-            <Button text="Adicionar"/>
-            <Button text="Editar"/>
-            <Button text="Excluir"/>
-        </HBox>
-    </bottom>
+
+    <right>
+        <VBox spacing="10" style="-fx-padding: 10; -fx-background-color: #f0f0f0;">
+            <Text text="Empréstimos Registrados" />
+            <ListView fx:id="listaEmprestimos" />
+        </VBox>
+    </right>
 </BorderPane>

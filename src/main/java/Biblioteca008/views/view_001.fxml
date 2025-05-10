@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Biblioteca008.views.View001"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="Biblioteca008.Controllers.ClienteController">
 
-</AnchorPane>
+    <top>
+        <Label text="Cadastro de Clientes"
+               style="-fx-font-size: 18px; -fx-font-weight: bold;"
+               BorderPane.alignment="CENTER"/>
+    </top>
+
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <!-- Formulário -->
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <Label text="Nome:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="campoNome" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Sexo:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="campoSexo" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Data de Nascimento:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="campoDatanascimento" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Endereço:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="campoEndereco" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="CPF:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="campoCpf" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <!-- Botões -->
+            <HBox spacing="10">
+                <Button text="Salvar" onAction="#salvarCliente"/>
+                <Button text="Atualizar" onAction="#atualizarCliente"/>
+                <Button text="Deletar" onAction="#deletarCliente"/>
+                <Button text="Limpar" onAction="#limparCampos"/>
+            </HBox>
+
+            <!-- Tabela de Clientes -->
+            <TableView fx:id="tabelaCliente" prefHeight="200" onMouseClicked="#preencherCamposComSelecao">
+                <columns>
+                    <TableColumn fx:id="colNome" text="Nome" prefWidth="150"/>
+                    <TableColumn fx:id="colSexo" text="Sexo" prefWidth="100"/>
+                    <TableColumn fx:id="colDatanascimento" text="Nascimento" prefWidth="120"/>
+                    <TableColumn fx:id="colEndereco" text="Endereço" prefWidth="200"/>
+                    <TableColumn fx:id="colCpf" text="CPF" prefWidth="150"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>

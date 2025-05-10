@@ -3,9 +3,6 @@ package Biblioteca008.Repositorios;
 import Biblioteca008.Modelos.Cliente;
 
 import java.sql.*;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,33 +10,31 @@ public class ClienteRepository {
 
     private final String url = "jdbc:mysql://localhost:3306/biblioteca";
     private final String usuario = "root";
-    private final String senha = null;
+    private final String senha = null; // ou null, dependendo da configuração
 
     private Connection conectar() throws SQLException {
         return DriverManager.getConnection(url, usuario, senha);
-
     }
 
-    public void salvarcliente(Cliente cliente) {
-        String sql = "INSERT INTO cliente ( nome, sexo, datanascimento, endereco, cpf) VALUES ( ?, ?, ?, ?, ?)";
+    public void salvarCliente(Cliente cliente) {
+        String sql = "INSERT INTO cliente (nome, sexo, datanascimento, endereco, cpf) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getSexo());
-            stmt.setString(3, cliente.getCpf());
-            stmt.setString(4, cliente.getDatanascimento());
-            stmt.setString(5, cliente.getEndereco());
+            stmt.setString(3, cliente.getDatanascimento());
+            stmt.setString(4, cliente.getEndereco());
+            stmt.setString(5, cliente.getCpf());
 
             stmt.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public List<Cliente> ListarTodos() {
+    public List<Cliente> listarTodos() {
         List<Cliente> clientes = new ArrayList<>();
         String sql = "SELECT * FROM cliente";
 
@@ -63,20 +58,20 @@ public class ClienteRepository {
         return clientes;
     }
 
-    public Cliente buscarPorcpf(String cpf) {
+    public Cliente buscarPorCpf(String cpf) {
         String sql = "SELECT * FROM cliente WHERE cpf = ?";
 
         try (Connection conn = conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(5, Integer.parseInt(cpf));
+            stmt.setString(1, cpf);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 return new Cliente(
                         rs.getString("nome"),
                         rs.getString("sexo"),
-                        rs.getString("dataNascimento"),
+                        rs.getString("datanascimento"),
                         rs.getString("endereco"),
                         rs.getString("cpf")
                 );
@@ -111,7 +106,7 @@ public class ClienteRepository {
         try (Connection conn = conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(5, cpf);
+            stmt.setString(1, cpf);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
